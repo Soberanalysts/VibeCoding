@@ -1,0 +1,40 @@
+/* 회원가입 Figma 스타일 반영용 커스텀 스타일 */
+.fx-register-card {
+  border-radius: 18px;
+  box-shadow: 0 4px 24px rgba(80,100,200,0.10);
+  background: #fff;
+  padding: 2.5rem 2rem 2rem 2rem;
+}
+.fx-register-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1976d2;
+  margin-bottom: 1.5rem;
+  letter-spacing: -1px;
+}
+.fx-register-input {
+  border-radius: 10px;
+  border: 1.5px solid #e3e6f0;
+  background: #f7fafd;
+  padding-left: 2.5rem;
+  font-size: 1.07rem;
+}
+.fx-register-input:focus {
+  border-color: #1976d2;
+  background: #fff;
+  box-shadow: 0 0 0 2px rgba(25,118,210,0.13);
+}
+.fx-register-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #b0b7c3;
+  font-size: 1.1rem;
+}
+.fx-register-link {
+  color: #1976d2;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: 500;
+}
