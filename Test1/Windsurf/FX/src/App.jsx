@@ -1,15 +1,10 @@
 import { useState } from 'react';
-import ReactApexChart from 'react-apexcharts';
+import ExchangeCalculator from './components/ExchangeCalculator';
+import UsdKrwChart from './components/UsdKrwChart';
 import './App.css';
 
 function App() {
-  const [fromCurrency, setFromCurrency] = useState('USD');
-  const [toCurrency, setToCurrency] = useState('KRW');
-  const [amount, setAmount] = useState('');
-  const [result, setResult] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-
+  // 인기 환율 데이터 및 통화 옵션만 App에서 관리
   const currencyOptions = [
     { code: 'USD', name: '미국 달러' },
     { code: 'KRW', name: '한국 원' },
@@ -17,23 +12,6 @@ function App() {
     { code: 'EUR', name: '유로' },
     { code: 'CNY', name: '중국 위안' },
   ];
-
-  const handleExchange = async () => {
-    setLoading(true);
-    setError('');
-    setResult(null);
-    try {
-      // 실제 API 연동 전 임시 결과
-      const fakeRate = fromCurrency === toCurrency ? 1 : Math.random() * (1500 - 100) + 100;
-      setTimeout(() => {
-        setResult(amount ? (parseFloat(amount) * fakeRate).toFixed(2) : '0.00');
-        setLoading(false);
-      }, 700);
-    } catch (e) {
-      setError('환율 조회에 실패했습니다.');
-      setLoading(false);
-    }
-  };
 
   // mock 인기 환율 데이터
   const popularRates = [
@@ -96,45 +74,8 @@ function App() {
       </nav>
 
       {/* 상단: 환율 계산기 */}
-      <section className="container py-4">
-        <div className="bg-white rounded shadow-sm p-4 mx-auto" style={{maxWidth: 540}}>
-          <h3 className="fw-bold mb-4 text-center text-primary">환율 계산기</h3>
-          <form onSubmit={e => { e.preventDefault(); handleExchange(); }}>
-            <div className="row g-2 align-items-center mb-3">
-              <div className="col-12 col-md-5">
-                <input type="number" min="0" className="form-control" value={amount} onChange={e => setAmount(e.target.value)} placeholder="금액 입력" />
-              </div>
-              <div className="col-6 col-md-3">
-                <select className="form-select" value={fromCurrency} onChange={e => setFromCurrency(e.target.value)}>
-                  {currencyOptions.map(opt => (
-                    <option key={opt.code} value={opt.code}>{opt.code}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="col-6 col-md-3">
-                <select className="form-select" value={toCurrency} onChange={e => setToCurrency(e.target.value)}>
-                  {currencyOptions.map(opt => (
-                    <option key={opt.code} value={opt.code}>{opt.code}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="col-12 col-md-1 d-grid">
-                <button type="submit" className="btn btn-primary w-100" disabled={loading || !amount}>
-                  {loading ? '...' : '변환'}
-                </button>
-              </div>
-            </div>
-          </form>
-          <div className="mt-3">
-            {error && <div className="alert alert-danger text-center py-2 mb-2">{error}</div>}
-            {result && !error && (
-              <div className="alert alert-info text-center mb-0">
-                <span className="fw-semibold">{amount} {fromCurrency} → {toCurrency}</span>
-                <div className="fs-4 fw-bold mt-1">{result} {toCurrency}</div>
-              </div>
-            )}
-          </div>
-        </div>
+      <section className="container my-4">
+        <ExchangeCalculator currencyOptions={currencyOptions} />
       </section>
 
       {/* 중단: 인기 환율/그래프 */}
@@ -154,18 +95,11 @@ function App() {
               </ol>
             </div>
           </div>
-          {/* 그래프 영역: ApexCharts */}
+          {/* 그래프 영역: 컴포넌트 분리 */}
           <div className="col-12 col-lg-7">
             <div className="bg-white rounded shadow-sm p-4 h-100 d-flex flex-column align-items-center justify-content-center">
               <h5 className="fw-bold mb-3 text-primary">1년 환율 추이</h5>
-              <div className="w-100" style={{minHeight: 260}}>
-                <ReactApexChart
-                  options={chartOptions}
-                  series={chartSeries}
-                  type="line"
-                  height={240}
-                />
-              </div>
+              <UsdKrwChart />
             </div>
           </div>
         </div>
