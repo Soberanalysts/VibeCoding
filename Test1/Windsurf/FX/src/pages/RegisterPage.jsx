@@ -48,7 +48,7 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="container d-flex flex-column align-items-center justify-content-center" style={{minHeight: '100vh', background: '#f6f7fb'}}>
+    <div className="fx-page-1440">
       <div className="fx-register-card mx-auto" style={{maxWidth: 420, width: '100%'}}>
         <div className="fx-register-title text-center mb-4">회원가입</div>
         <form onSubmit={handleSubmit} autoComplete="off">

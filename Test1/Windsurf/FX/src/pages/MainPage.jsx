@@ -29,7 +29,7 @@ export default function MainPage() {
           </button>
           <div className="collapse navbar-collapse justify-content-end" id="navbarNav">
             <ul className="navbar-nav">
-              <li className="nav-item"><a className="nav-link" href="#">게시판</a></li>
+              <li className="nav-item"><a className="nav-link" href="#" onClick={e => {e.preventDefault(); navigate('/board');}}>게시판</a></li>
               <li className="nav-item"><a className="nav-link" href="#">로그인</a></li>
               <li className="nav-item"><button className="btn btn-light btn-sm ms-2" onClick={() => navigate('/register')}>회원가입</button></li>
             </ul>
@@ -61,7 +61,12 @@ export default function MainPage() {
           </div>
           {/* 그래프 영역: 컴포넌트 분리 */}
           <div className="col-12 col-lg-7">
-            <div className="bg-white rounded shadow-sm p-4 h-100 d-flex flex-column align-items-center justify-content-center">
+            <div
+              className="bg-white rounded shadow-sm p-4 h-100 d-flex flex-column align-items-center justify-content-center"
+              style={{ cursor: 'pointer' }}
+              onClick={() => navigate('/chart-detail')}
+              title="상세 그래프 보기"
+            >
               <h5 className="fw-bold mb-3 text-primary">1년 환율 추이</h5>
               <UsdKrwChart />
             </div>
