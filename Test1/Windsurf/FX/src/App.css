@@ -1,0 +1,145 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.fx-main-container {
+  max-width: 420px;
+  margin: 48px auto;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 32px #0001;
+  padding: 32px 24px 24px 24px;
+}
+
+.fx-header h1 {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 32px;
+  color: #1a237e;
+  letter-spacing: 1px;
+}
+
+.fx-form-section {
+  margin-bottom: 28px;
+}
+
+.fx-form-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+  gap: 16px;
+  justify-content: space-between;
+}
+
+.fx-form-row label {
+  min-width: 80px;
+  font-weight: 500;
+  color: #222;
+}
+
+.fx-form-row select,
+.fx-form-row input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 1px solid #c5cae9;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.fx-btn {
+  width: 100%;
+  padding: 12px 0;
+  background: #3949ab;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 8px;
+  transition: background 0.2s;
+}
+.fx-btn:disabled {
+  background: #b0bec5;
+  cursor: not-allowed;
+}
+.fx-btn:not(:disabled):hover {
+  background: #283593;
+}
+
+.fx-result-section {
+  margin-top: 24px;
+  min-height: 48px;
+}
+
+.fx-result {
+  background: #e8eaf6;
+  border-radius: 10px;
+  padding: 18px 0 12px 0;
+  color: #222;
+}
+.fx-result span {
+  font-size: 1.05rem;
+  color: #3949ab;
+}
+.fx-result h2 {
+  font-size: 2rem;
+  margin: 10px 0 0 0;
+  color: #1a237e;
+}
+
+.fx-error {
+  color: #d32f2f;
+  background: #ffebee;
+  border-radius: 8px;
+  padding: 10px 0;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 600px) {
+  .fx-main-container {
+    padding: 16px 4px;
+  }
+  .fx-header h1 {
+    font-size: 1.3rem;
+  }
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+}
