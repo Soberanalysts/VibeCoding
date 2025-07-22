@@ -35,8 +35,18 @@ export default function WritePage() {
 
   return (
     <div className="fx-write-page-1440">
-      <div className="fx-write-card">
-        <div className="fx-write-title">게시글 작성</div>
+      {/* 상단 헤더 */}
+      <div className="fx-write-header">
+        <button className="fx-write-header-btn" onClick={() => navigate(-1)}>
+          <span className="material-icons">arrow_back</span>
+        </button>
+        <div className="fx-write-header-title">게시글 작성</div>
+        <button className="fx-write-header-btn" onClick={() => alert('미리보기 기능은 추후 지원됩니다.')}
+          style={{marginLeft:'auto'}}>
+          <span className="material-icons">visibility</span>
+        </button>
+      </div>
+      <div className="fx-write-card" style={{paddingBottom:0}}>
         <form onSubmit={handleSubmit}>
           <input
             type="text"
@@ -64,15 +74,16 @@ export default function WritePage() {
             maxLength={2000}
           />
           <div className="fx-write-error">{formError}</div>
-          <div className="fx-write-btn-row">
-            <button type="submit" className="fx-write-submit-btn" disabled={loading}>
-              {loading ? '등록 중...' : '등록'}
-            </button>
-            <button type="button" className="fx-write-cancel-btn" onClick={()=>navigate('/board')} disabled={loading}>
-              취소
-            </button>
-          </div>
         </form>
+      </div>
+      {/* 하단 버튼 footer */}
+      <div className="fx-write-footer">
+        <button type="button" className="fx-write-cancel-btn" onClick={()=>navigate('/board')} disabled={loading}>
+          Cancel
+        </button>
+        <button type="button" className="fx-write-submit-btn" onClick={handleSubmit} disabled={loading}>
+          {loading ? 'Publishing...' : 'Publish'}
+        </button>
       </div>
     </div>
   );
