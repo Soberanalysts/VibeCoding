@@ -1,4 +1,4 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
 
 // 임시 메모리 mock 데이터
@@ -43,4 +43,4 @@ router.get('/:id', (req, res) => {
   res.json(post);
 });
 
-module.exports = router;
+export default router;

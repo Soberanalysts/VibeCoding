@@ -14,7 +14,8 @@ export default function ExchangeCalculator({ currencyOptions, onResult }) {
     setResult(null);
     try {
       // 실제 API 연동 전 임시 결과
-      const fakeRate = fromCurrency === toCurrency ? 1 : Math.random() * (1500 - 100) + 100;
+    //   const fakeRate = fromCurrency === toCurrency ? 1 : Math.random() * (1500 - 100) + 100;
+      const fakeRate = fromCurrency === toCurrency ? 1 : 1380;
       setTimeout(() => {
         const calc = amount ? (parseFloat(amount) * fakeRate).toFixed(2) : '0.00';
         setResult(calc);
