@@ -11,7 +11,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 // API 라우트
-app.use('/api/board', boardRouter);
+app.use('/api/v1/posts', boardRouter);
 app.use('/api/v1/fx', fxRouter);
 
 app.get('/', (req, res) => {

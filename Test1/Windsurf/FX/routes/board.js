@@ -13,9 +13,45 @@ let posts = [
   { id: 8, title: 'FX 환율 질문 8', author: 'user8', date: '2024-07-18', views: 156 },
 ];
 
-// GET /api/board - 게시글 목록
+// GET /api/v1/posts - 게시글 전체 조회/검색/정렬/페이징
 router.get('/', (req, res) => {
-  res.json(posts);
+  let result = [...posts];
+  const { q, search_type = 'all', sort = 'latest', page = 1 } = req.query;
+
+  // 검색
+  if (q) {
+    if (search_type === 'title') {
+      result = result.filter(p => p.title.includes(q));
+    } else if (search_type === 'content') {
+      result = result.filter(p => (p.content || '').includes(q));
+    } else if (search_type === 'nickname') {
+      result = result.filter(p => p.author.includes(q));
+    } else {
+      // all: 제목+본문+작성자
+      result = result.filter(p => p.title.includes(q) || (p.content || '').includes(q) || p.author.includes(q));
+    }
+  }
+
+  // 정렬
+  if (sort === 'latest') {
+    result.sort((a, b) => (b.date > a.date ? 1 : -1));
+  } else if (sort === 'read') {
+    result.sort((a, b) => b.views - a.views);
+  } else if (sort === 'comments') {
+    result.sort((a, b) => (b.comments || 0) - (a.comments || 0));
+  } else if (sort === 'likes') {
+    result.sort((a, b) => (b.likes || 0) - (a.likes || 0));
+  }
+
+  // 페이징(10개씩)
+  const pageSize = 10;
+  const start = (page - 1) * pageSize;
+  const paged = result.slice(start, start + pageSize);
+
+  if (!paged.length) {
+    return res.status(404).json({ message: '게시글이 없습니다.' });
+  }
+  res.status(200).json(paged);
 });
 
 // POST /api/board - 새 게시글 작성

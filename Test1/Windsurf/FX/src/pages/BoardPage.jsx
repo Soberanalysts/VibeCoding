@@ -1,17 +1,57 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import '../styles/board.css';
 
-// mock 데이터 (게시글 목록)
-const mockPosts = Array.from({ length: 8 }).map((_, i) => ({
-  id: i + 1,
-  title: `FX 환율 질문 ${i + 1}`,
-  author: `user${i + 1}`,
-  date: `2024-07-${(i + 11).toString().padStart(2, '0')}`,
-  views: 100 + i * 7,
-}));
-
 export default function BoardPage() {
-  const [posts] = useState(mockPosts);
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  // 글쓰기 폼 상태
+  const [showForm, setShowForm] = useState(false);
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [formError, setFormError] = useState('');
+
+  // 게시글 목록 불러오기
+  const fetchPosts = () => {
+    setLoading(true);
+    setError('');
+    fetch('http://localhost:4000/api/v1/posts')
+      .then(res => {
+        if (!res.ok) throw new Error('게시글 조회 실패');
+        return res.json();
+      })
+      .then(json => setPosts(json))
+      .catch(() => setError('서버 연결 오류'))
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
+  // 글쓰기 제출 핸들러
+  const handleSubmit = async () => {
+    if (!title.trim() || !author.trim()) {
+      setFormError('제목과 작성자를 모두 입력하세요.');
+      return;
+    }
+    setFormError('');
+    try {
+      const res = await fetch('http://localhost:4000/api/v1/posts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ title, author })
+      });
+      if (!res.ok) throw new Error('등록 실패');
+      setTitle('');
+      setAuthor('');
+      setShowForm(false);
+      fetchPosts();
+    } catch {
+      setFormError('등록 중 오류 발생');
+    }
+  };
+
   return (
     <div className="fx-board-page-1440">
       <div className="fx-board-header">게시판</div>
@@ -40,8 +80,38 @@ export default function BoardPage() {
         </table>
       </div>
       <div className="fx-board-footer">
-        <button className="fx-board-write-btn">글쓰기</button>
+        <button className="fx-board-write-btn" onClick={() => setShowForm(true)}>글쓰기</button>
       </div>
+
+      {/* 글쓰기 폼 (간단 인라인) */}
+      {showForm && (
+        <div className="fx-board-write-form-bg">
+          <div className="fx-board-write-form">
+            <h4>게시글 작성</h4>
+            <input
+              type="text"
+              placeholder="제목"
+              value={title}
+              onChange={e => setTitle(e.target.value)}
+              className="fx-board-input"
+              style={{marginBottom:8}}
+            />
+            <input
+              type="text"
+              placeholder="작성자"
+              value={author}
+              onChange={e => setAuthor(e.target.value)}
+              className="fx-board-input"
+              style={{marginBottom:8}}
+            />
+            <div style={{color:'#d32f2f', minHeight:18, fontSize:13}}>{formError}</div>
+            <div style={{marginTop:8, display:'flex', gap:8}}>
+              <button className="fx-board-write-btn" onClick={handleSubmit}>등록</button>
+              <button className="fx-board-write-btn fx-board-cancel-btn" onClick={()=>{setShowForm(false);setFormError('')}}>취소</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
