@@ -80,7 +80,7 @@ export default function BoardPage() {
         </table>
       </div>
       <div className="fx-board-footer">
-        <button className="fx-board-write-btn" onClick={() => setShowForm(true)}>글쓰기</button>
+        <button className="fx-board-write-btn" onClick={() => navigate('/write')}>글쓰기</button>
       </div>
 
       {/* 글쓰기 폼 (간단 인라인) */}
