@@ -1,0 +1,34 @@
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:id="@+id/main_view"
+android:layout_width="1440dp"
+android:layout_height="1652dp"
+android:clipToOutline="true"
+android:background="@drawable/main_view"
+ />
+
+<!-- drawable/main_view.xml -->
+<vector
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:aapt="http://schemas.android.com/aapt"
+android:width="1440dp"
+android:height="1652dp"
+android:viewportWidth="1440"
+android:viewportHeight="1652"
+ >
+<group>
+<clip-path
+android:pathData="M8 0H1432C1436.42 0 1440 3.58172 1440 8V1644C1440 1648.42 1436.42 1652 1432 1652H8C3.58172 1652 0 1648.42 0 1644V8C0 3.58172 3.58172 0 8 0Z"
+/>
+<path
+android:pathData="M0 0V1652H1440V0"
+android:fillColor="#FFFFFF"
+/>
+<path
+android:pathData="M8 0H1432C1436.42 0 1440 3.58172 1440 8V1644C1440 1648.42 1436.42 1652 1432 1652H8C3.58172 1652 0 1648.42 0 1644V8C0 3.58172 3.58172 0 8 0Z"
+android:strokeWidth="4"
+android:strokeColor="#CED4DA"
+/>
+</group>
+</vector>
+`
